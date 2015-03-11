@@ -19,6 +19,7 @@
  * limitations under the License.
  */
 
+import java.util.zip.*; 
 
 import org.apache.lucene.analysis.Analyzer;
 import org.apache.lucene.analysis.standard.StandardAnalyzer;
@@ -40,6 +41,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.util.Date;
@@ -151,6 +153,11 @@ public class IndexFiles {
     throws IOException {
     // do not try to index files that cannot be read
     if (file.canRead()) {
+//    	if (file.getName().endsWith(".zip")){
+//    		ZipInputStream zip = new ZipInputStream(new FileInputStream(file));
+//    		ZipEntry zipEntry= zip.getNextEntry();
+//    		indexDocs(writer, new File(zipEntry));
+//    	}
       if (file.isDirectory()) {
         String[] files = file.list();
         // an IO error could occur
@@ -181,6 +188,18 @@ public class IndexFiles {
           // or positional information:
           Field pathField = new StringField("path", file.getPath(), Field.Store.YES);
           doc.add(pathField);
+          
+          
+          //ADD CODE TO PARSE FILE GETTING STRINGS FOR AUTHOR AND TITLE
+          
+         String title="";
+         String author="";
+          
+          Field titleField = new StringField("title", title, Field.Store.YES);
+          doc.add(titleField);
+
+          Field authorField = new StringField("author", author, Field.Store.YES);
+          doc.add(authorField);
 
           // Add the last modified date of the file a field named "modified".
           // Use a LongField that is indexed (i.e. efficiently filterable with

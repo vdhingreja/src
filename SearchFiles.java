@@ -95,7 +95,7 @@ public static void main(String[] args) throws Exception {
     IndexReader reader = DirectoryReader.open(FSDirectory.open(new File(index)));
     IndexSearcher searcher = new IndexSearcher(reader);
     // :Post-Release-Update-Version.LUCENE_XY:
-    Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_4_10_0);
+    Analyzer analyzer = new StandardAnalyzer(Version.LUCENE_4_10_3);
 
     BufferedReader in = null;
     if (queries != null) {
@@ -104,7 +104,7 @@ public static void main(String[] args) throws Exception {
       in = new BufferedReader(new InputStreamReader(System.in, StandardCharsets.UTF_8));
     }
     // :Post-Release-Update-Version.LUCENE_XY:
-    QueryParser parser = new QueryParser(Version.LUCENE_4_10_0, field, analyzer);
+    QueryParser parser = new QueryParser(Version.LUCENE_4_10_3, field, analyzer);
     while (true) {
       if (queries == null && queryString == null) {                        // prompt the user
         System.out.println("Enter query: ");
